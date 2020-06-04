@@ -12646,6 +12646,10 @@
             "type" : "string",
             "description" : "The language ID (3 characters)."
           },
+          "active" : {
+            "type" : "string",
+            "description" : "If the language is used in the company."
+          },
           "name" : {
             "$ref" : "#/components/schemas/Language_name"
           }
