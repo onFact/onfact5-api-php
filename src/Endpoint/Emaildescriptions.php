@@ -4,7 +4,7 @@
 namespace OnFact\Endpoint;
 
 
-class Descriptions extends Api
+class Emaildescriptions extends Api
 {
 
     const ENDPOINT = '/v1/emaildescriptions';
