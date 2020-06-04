@@ -4,8 +4,6 @@
 namespace OnFact\Endpoint;
 
 
-use OnFact\Model\ImportRequest;
-
 class ProductGroups extends Api
 {
 
