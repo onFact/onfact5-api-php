@@ -47,12 +47,16 @@ abstract class Api
         ]);
     }
 
-    private function getHeaders()
+    private function getHeaders(array $actions = [])
     {
         $headers = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         ];
+
+        if (!empty($actions)) {
+            $headers['X-ACTIONS'] = join(',', $actions);
+        }
 
         if (self::$apiKey) {
             $headers['X-SESSION-KEY'] = self::$apiKey;
@@ -81,12 +85,12 @@ abstract class Api
         }
     }
 
-    protected function _post(string $endpoint, Model $model) {
+    protected function _post(string $endpoint, Model $model, array $actions = []) {
         $client = self::getClient();
         $endpoint .= '.json';
 
         $request = $client->request('POST', $endpoint, [
-            'headers' => self::getHeaders(),
+            'headers' => self::getHeaders($actions),
             'body' => json_encode($model),
         ]);
 
