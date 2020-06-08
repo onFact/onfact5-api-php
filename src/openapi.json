@@ -16503,6 +16503,26 @@
           }
         }
       },
+      "DocumentEvent" : {
+        "required" : [ "status" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "The id of the event.",
+            "readOnly" : true
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The new status of the document",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "description" : "The datetime the event was created"
+          }
+        }
+      },
       "Email" : {
         "required" : [ "subject", "text", "to" ],
         "type" : "object",
