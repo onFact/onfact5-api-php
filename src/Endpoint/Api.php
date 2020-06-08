@@ -126,8 +126,8 @@ abstract class Api
         return new Index(substr(strrchr(get_class($this), "\\"), 1), $response);
     }
 
-    public function create(Model $model) {
-        $response = $this->_post(static::ENDPOINT, $model);
+    public function create(Model $model, $actions = []) {
+        $response = $this->_post(static::ENDPOINT, $model, $actions);
         $model->setId($response->id);
 
         return $response->id;
