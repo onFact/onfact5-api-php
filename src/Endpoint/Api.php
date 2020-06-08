@@ -43,7 +43,7 @@ abstract class Api
     private static function getClient() {
         return new Client([
             'base_uri' => self::BASE_URI,
-            'timeout'  => 2.0,
+            'timeout'  => 10.0,
         ]);
     }
 
