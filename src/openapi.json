@@ -12796,6 +12796,61 @@
             "type" : "integer",
             "description" : "The id of the company.",
             "readOnly" : true
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "a chosen name for the description so the user can easily select a description"
+          },
+          "street" : {
+            "type" : "string"
+          },
+          "streetnumber" : {
+            "type" : "string"
+          },
+          "citycode" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "vat" : {
+            "type" : "string",
+            "description" : "The vat number of the contact. Please incluse the country code!"
+          },
+          "country_id" : {
+            "type" : "string"
+          },
+          "language_id" : {
+            "type" : "string"
+          },
+          "currency_id" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "gsm" : {
+            "type" : "string"
+          },
+          "fax" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "multiple email addresses can be seperated by a comma."
+          },
+          "website" : {
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "string",
+            "description" : "The datetime the contact was created",
+            "format" : "datetime"
+          },
+          "modified" : {
+            "type" : "string",
+            "description" : "The datetime the contact was last modified",
+            "format" : "datetime"
           }
         }
       },
