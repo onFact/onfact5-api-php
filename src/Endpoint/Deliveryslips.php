@@ -3,7 +3,7 @@
 
 namespace OnFact\Endpoint;
 
-class Deliveryslips extends Api
+class Deliveryslips extends Documents
 {
 
     const ENDPOINT = '/v1/deliveryslips';

@@ -3,7 +3,7 @@
 
 namespace OnFact\Endpoint;
 
-class Orderslips extends Api
+class Orderslips extends Documents
 {
 
     const ENDPOINT = '/v1/orderslips';
