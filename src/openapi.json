@@ -17063,7 +17063,7 @@
             "type" : "string",
             "description" : "the standard email subject"
           },
-          "description" : {
+          "emaildescription" : {
             "type" : "string",
             "description" : "the actual description"
           },
