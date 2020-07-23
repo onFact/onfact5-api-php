@@ -24,7 +24,7 @@ final class ProductsTest extends TestCase
      * @throws Exception
      */
     public function testIndex() {
-        $list = $this->Products->index();
+        $list = $this->Products->index([], ['X-FORCE-CACHE' => 300]);
         $this->assertContains('Index', get_class($list));
         $this->assertContains('Paging', get_class($list->getPaging()));
         $this->assertInternalType('int', $list->getCount());
@@ -79,7 +79,7 @@ final class ProductsTest extends TestCase
         $product = new \OnFact\Model\Product($data);
         $id = $this->Products->create($product);
 
-        $read = $this->Products->read($id);
+        $read = $this->Products->read($id, [], ['X-FORCE-CACHE' => 300]);
         $this->assertEquals($data['name'], $read->getName());
         $this->assertEquals($data['productgroup_id'], $read->getProductgroupId());
         $this->assertEquals($data['price'], $read->getPrice());

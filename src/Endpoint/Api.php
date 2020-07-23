@@ -69,13 +69,13 @@ abstract class Api
         return $headers;
     }
 
-    protected function _get($endpoint, $queryParams = []) {
+    protected function _get($endpoint, $queryParams = [], $headers = []) {
         try {
             $client = self::getClient();
             $endpoint .= '.json';
 
             $request = $client->request('GET', $endpoint, [
-                'headers' => self::getHeaders(),
+                'headers' => array_merge(self::getHeaders(), $headers),
                 'query' => $queryParams,
             ]);
 
@@ -120,8 +120,8 @@ abstract class Api
         return json_decode($request->getBody()->__toString());
     }
 
-    public function index($queryParams = []) {
-        $response = $this->_get(static::ENDPOINT, $queryParams);
+    public function index($queryParams = [], $headers = []) {
+        $response = $this->_get(static::ENDPOINT, $queryParams, $headers);
 
         return new Index(substr(strrchr(get_class($this), "\\"), 1), $response);
     }
@@ -133,9 +133,9 @@ abstract class Api
         return $response->id;
     }
 
-    public function read(int $id) {
+    public function read(int $id, $queryParams = [], $headers = []) {
         $model = substr(strrchr(get_class($this), "\\"), 1);
-        $response = $this->_get(static::ENDPOINT . '/' . $id);
+        $response = $this->_get(static::ENDPOINT . '/' . $id, $queryParams, $headers);
 
         return ModelFactory::create($model, $response);
     }
