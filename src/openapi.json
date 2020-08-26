@@ -584,10 +584,7 @@
               }
             }
           }
-        },
-        "security" : [ {
-          "public" : [ ]
-        } ]
+        }
       }
     },
     "/v1/oauth2/two-factor-authentication" : {
@@ -620,6 +617,53 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/responses/InvalidTwoFactorAuthenticationCodeErrorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized: Authentication is needed for this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "TooManyRequests: The API throttling limit has been reached",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tokens" : {
+      "post" : {
+        "tags" : [ "Authentication" ],
+        "description" : "create a single access token. The tokens can be used to access a secure URL in the browser.",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Token"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Resource Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Success"
                 }
               }
             }
@@ -10134,6 +10178,343 @@
         }
       }
     },
+    "/companies" : {
+      "get" : {
+        "tags" : [ "Company Settings" ],
+        "summary" : "List companies",
+        "description" : "Get all accessible companies (for accounting companies)",
+        "parameters" : [ {
+          "name" : "X-COMPANY-UUID",
+          "in" : "header",
+          "description" : "The UUID of the company for which this endpoint is used",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The number of items to skip before starting to collect the result set",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "The numbers of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 100
+          }
+        }, {
+          "name" : "q",
+          "in" : "query",
+          "description" : "A logic expression to filter the list against. For example: 'isCustomer && name:BVBA*'",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of templates",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TemplatesList"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized: Authentication is needed for this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden: User is authenticated but does not have enough rights to perform this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "TooManyRequests: The API throttling limit has been reached",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Company Settings" ],
+        "summary" : "Register new account",
+        "description" : "Create a new account for a company. Also provive the details for the first user and owner.",
+        "parameters" : [ {
+          "name" : "X-COMPANY-UUID",
+          "in" : "header",
+          "description" : "The UUID of the company for which this endpoint is used",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Company"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Resource Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "ValidationError: Resource could not be saved because of validation errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized: Authentication is needed for this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden: User is authenticated but does not have enough rights to perform this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "TooManyRequests: The API throttling limit has been reached",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{id}" : {
+      "get" : {
+        "tags" : [ "Company Settings" ],
+        "summary" : "View company",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The resource ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Company"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized: Authentication is needed for this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden: User is authenticated but does not have enough rights to perform this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "NotFound: The specified resourse wat not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "TooManyRequests: The API throttling limit has been reached",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Company Settings" ],
+        "summary" : "Update company",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The resource ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "X-COMPANY-UUID",
+          "in" : "header",
+          "description" : "The UUID of the company for which this endpoint is used",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Template"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Resource Updated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "ValidationError: Resource could not be saved because of validation errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized: Authentication is needed for this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Forbidden: User is authenticated but does not have enough rights to perform this action",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "NotFound: The specified resourse wat not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "TooManyRequests: The API throttling limit has been reached",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contact-fields" : {
       "get" : {
         "tags" : [ "Company Settings" ],
@@ -12684,6 +13065,19 @@
           }
         }
       },
+      "Token" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "The token id (key). Add ?token=*id* to URLs."
+          },
+          "redirect_url" : {
+            "type" : "string",
+            "description" : "When using a partners oAuth, you can set the redirect URL to open the application again from where the oAuth was opened."
+          }
+        }
+      },
       "App" : {
         "type" : "object",
         "properties" : {
@@ -12842,6 +13236,12 @@
           "website" : {
             "type" : "string"
           },
+          "users" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/User"
+            }
+          },
           "created" : {
             "type" : "string",
             "description" : "The datetime the contact was created",
@@ -12851,6 +13251,36 @@
             "type" : "string",
             "description" : "The datetime the contact was last modified",
             "format" : "datetime"
+          }
+        }
+      },
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "The internal id of the user.",
+            "readOnly" : true
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "The email of the user. Can only be set when registering, not when updating."
+          },
+          "password" : {
+            "type" : "string",
+            "description" : "The password of the user. Can only be set when registering, not when updating."
+          },
+          "firstname" : {
+            "type" : "string",
+            "description" : "The first name of the user"
+          },
+          "lastname" : {
+            "type" : "string",
+            "description" : "The last name or family name of the user"
+          },
+          "language_id" : {
+            "type" : "string",
+            "description" : "The language id of the user. This is the language of the application."
           }
         }
       },
