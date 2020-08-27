@@ -20,6 +20,8 @@ abstract class Api
     private static $apiKey;
     private static $companyUuid;
 
+    private $response;
+
     public function __construct()
     {
     }
@@ -67,6 +69,14 @@ abstract class Api
         }
 
         return $headers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 
     protected function _get($endpoint, $queryParams = [], $headers = []) {
@@ -122,12 +132,14 @@ abstract class Api
 
     public function index($queryParams = [], $headers = []) {
         $response = $this->_get(static::ENDPOINT, $queryParams, $headers);
+        $this->response = $response;
 
         return new Index(substr(strrchr(get_class($this), "\\"), 1), $response);
     }
 
     public function create(Model $model, $actions = []) {
         $response = $this->_post(static::ENDPOINT, $model, $actions);
+        $this->response = $response;
         $model->setId($response->id);
 
         return $response->id;
@@ -136,18 +148,21 @@ abstract class Api
     public function read(int $id, $queryParams = [], $headers = []) {
         $model = substr(strrchr(get_class($this), "\\"), 1);
         $response = $this->_get(static::ENDPOINT . '/' . $id, $queryParams, $headers);
+        $this->response = $response;
 
         return ModelFactory::create($model, $response);
     }
 
     public function update(Model $model) {
         $response = $this->_put(static::ENDPOINT . '/' . $model->getId(), $model);
+        $this->response = $response;
 
         return $response->id;
     }
 
     public function delete(int $id) {
         $response = $this->_delete(static::ENDPOINT . '/' . $id);
+        $this->response = $response;
 
         return $response->id;
     }

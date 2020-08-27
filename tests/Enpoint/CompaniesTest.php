@@ -100,6 +100,9 @@ final class CompaniesTest extends TestCase
         $id = $this->Companies->create($company);
         $this->assertInternalType('integer', $id);
         $this->assertEquals($id, $company->getId());
+
+        $response = $this->Companies->getResponse();
+        $this->assertContains('?token', $response->redirect_url);
     }
 }
 
