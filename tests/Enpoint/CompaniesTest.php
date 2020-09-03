@@ -89,6 +89,8 @@ final class CompaniesTest extends TestCase
     public function testCreate() {
         $data = [
             'name' => 'Product or service A',
+            'platform_id' => 4,
+            'role' => 'affiliate',
             'users' => [
                 [
                     'email' => 'test' . rand(10000000000, 999999999999) . '@infinwebs.be',
