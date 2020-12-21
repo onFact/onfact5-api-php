@@ -13424,6 +13424,26 @@
             "type" : "string",
             "description" : "An external ID that can be set by the user. This field is not visible in the UI but can be used in the API to match to an external ID. This field is also used by the import function to update a contact rather than creating a new one."
           },
+          "utm_source" : {
+            "type" : "string",
+            "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
+          },
+          "utm_medium" : {
+            "type" : "string",
+            "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
+          },
+          "utm_campaign" : {
+            "type" : "string",
+            "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
+          },
+          "utm_keyword" : {
+            "type" : "string",
+            "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
+          },
+          "utm_content" : {
+            "type" : "string",
+            "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
+          },
           "channel" : {
             "type" : "string",
             "description" : "Used for prospecting: the channel from which you gained a new prospect. For example your website, facebook campaign, social marketing, ... This value is used in reports to give feedback about the performance of different marketing channels"
