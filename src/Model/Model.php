@@ -50,9 +50,7 @@ class Model implements \JsonSerializable
 
     protected function _set($name, $value)
     {
-        if (isset($this->_accessible->{$name})) {
-            $this->_fields[$name] = $value;
-        }
+        $this->_fields[$name] = $value;
 
         return $this;
     }
