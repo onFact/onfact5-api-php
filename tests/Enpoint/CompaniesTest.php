@@ -87,24 +87,27 @@ final class CompaniesTest extends TestCase
      * @throws Exception
      */
     public function testCreate() {
-        $data = [
-            'name' => 'Product or service A',
-            'platform_id' => 4,
-            'role' => 'affiliate',
-            'users' => [
-                [
-                    'email' => 'test' . rand(10000000000, 999999999999) . '@infinwebs.be',
-                    'password' => rand(100000, 99999) . 'ABC'
+        for ($i = 0; $i < 20; $i++) {
+            $data = [
+                'name' => 'Product or service A',
+                'platform_id' => 4,
+                'role' => 'affiliate',
+                'users' => [
+                    [
+                        'email' => 'test' . rand(10000000000, 999999999999) . '@infinwebs.be',
+                        'password' => rand(100000, 99999) . 'ABC'
+                    ]
                 ]
-            ]
-        ];
-        $company = new \OnFact\Model\Company($data);
-        $id = $this->Companies->create($company);
-        $this->assertInternalType('integer', $id);
-        $this->assertEquals($id, $company->getId());
+            ];
+            $company = new \OnFact\Model\Company($data);
+            $id = $this->Companies->create($company);
+            $this->assertInternalType('integer', $id);
+            $this->assertEquals($id, $company->getId());
 
-        $response = $this->Companies->getResponse();
-        $this->assertContains('?token', $response->redirect_url);
+            $response = $this->Companies->getResponse();
+            var_dump($response);
+            $this->assertContains('?token', $response->redirect_url);
+        }
     }
 }
 
